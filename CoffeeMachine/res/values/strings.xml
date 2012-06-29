@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, CoffeeMachineActivity!</string>
+    <string name="app_name">CoffeeMachine</string>
+
+    <string-array name="fragment_titles">
+        <item>Statistics</item>
+        <item>Make Something to Drink</item>
+        <item>Settings</item>
+        <item>Manuals &amp; Videos</item>
+    </string-array>
+
+    <string name="swipe_page_visited">Number of visits</string>
+    <string name="statistics">Statistics: 0</string>
+    <string name="drinks">Drinks: 0</string>
+    <string name="settings">Settings: 0</string>
+    <string name="manuals">Manuals: 0</string>
+
+</resources>
