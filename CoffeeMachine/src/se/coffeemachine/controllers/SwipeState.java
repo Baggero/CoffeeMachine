@@ -3,7 +3,7 @@ package se.coffeemachine.controllers;
 import se.coffeemachine.activities.SwipeActivity;
 import android.util.Log;
 
-public class SwipeState extends CoffeeState {
+public abstract class SwipeState extends CoffeeState {
 
 	private final static String TAG = SwipeState.class.getSimpleName();
 

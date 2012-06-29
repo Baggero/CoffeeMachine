@@ -12,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ManualsFragment extends SwipeFragment {
-	public ManualsFragment(SwipeContext context) {
-		super(context);
+	public ManualsFragment(SwipeContext context, SwipeController controller) {
+		super(context, controller);
+		Log.i(TAG, "Trying to create");
 		// TODO Auto-generated constructor stub
 	}
 
@@ -45,6 +46,7 @@ public class ManualsFragment extends SwipeFragment {
 						3);
 			}
 		});
+		Log.i(TAG, "Created");
 		return view;
 	}
 

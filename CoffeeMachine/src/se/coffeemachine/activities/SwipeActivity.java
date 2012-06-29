@@ -40,7 +40,7 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		controller = new SwipeController(counter);
 
 		mAdapter = new TestTitleFragmentAdapter(getSupportFragmentManager(),
-				this);
+				this, controller);
 
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		TitlePageIndicator title_indicator = (TitlePageIndicator) findViewById(R.id.title_indicator);

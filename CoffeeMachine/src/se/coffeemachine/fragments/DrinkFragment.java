@@ -13,8 +13,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public final class DrinkFragment extends SwipeFragment {
-	public DrinkFragment(SwipeContext context) {
-		super(context);
+	public DrinkFragment(SwipeContext context, SwipeController controller) {
+		super(context, controller);
+		Log.i(TAG, "Trying to create");
 	}
 
 	public static final String TAG = DrinkFragment.class.getSimpleName();
@@ -32,9 +33,9 @@ public final class DrinkFragment extends SwipeFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.i(TAG, "DrinkFragment created");
 		View view = inflater.inflate(R.layout.drinks, container, false);
 		initComponents(view);
+		Log.i(TAG, "Created");
 		return view;
 	}
 

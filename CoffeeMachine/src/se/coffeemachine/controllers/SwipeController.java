@@ -28,14 +28,16 @@ public class SwipeController extends Controller {
 	public static final int MESSAGE_UPDATE_STATE = 4;
 
 	// Messages for StatisticsFragment. Handled in StatisticsState
+	public static final int MESSAGE_GET_COUNTERS = 5;
+	public static final int MESSAGE_STATISTICS_UPDATED = 6;
 
 	// Messages for DrinkFragment. Handled in DrinkState
-	public static final int MESSAGE_MAKE_BIG_COFFEE = 5;
-	public static final int MESSAGE_MAKE_SMALL_COFFEE = 6;
-	public static final int MESSAGE_MAKE_CAPPUCCINO_MILK = 7;
-	public static final int MESSAGE_MAKE_CAFE_LATTE_MILK = 8;
-	public static final int MESSAGE_SET_COLD_FROTHED = 9;
-	public static final int MESSAGE_SET_WARM_FROTHED = 10;
+	public static final int MESSAGE_MAKE_BIG_COFFEE = 6;
+	public static final int MESSAGE_MAKE_SMALL_COFFEE = 7;
+	public static final int MESSAGE_MAKE_CAPPUCCINO_MILK = 8;
+	public static final int MESSAGE_MAKE_CAFE_LATTE_MILK = 9;
+	public static final int MESSAGE_SET_COLD_FROTHED = 10;
+	public static final int MESSAGE_SET_WARM_FROTHED = 11;
 
 	// Messages for SettingsFragment. Handled in SettingsState
 

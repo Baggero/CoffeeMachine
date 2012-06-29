@@ -1,5 +1,6 @@
 package se.coffeemachine.controllers;
 
+
 public class ManualsState extends SwipeState {
 
 	public ManualsState(SwipeController controller) {

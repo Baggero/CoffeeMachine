@@ -6,7 +6,7 @@ public class CoffeeVo extends SimpleObservable<CoffeeVo> {
 
 	private final String TAG = CoffeeVo.class.getSimpleName();
 
-	private final int[] count = new int[] { 0, 0, 0, 0 };
+	private final Integer[] count = new Integer[] { 0, 0, 0, 0 };
 	private boolean milk_heat = false;
 	private int big_coffee_count = 0;
 	private int small_coffee_count = 0;
@@ -52,6 +52,10 @@ public class CoffeeVo extends SimpleObservable<CoffeeVo> {
 		cafe_latte_milk_count = count;
 		Log.i(TAG, "Cafe latte event handled count=" + getCafeLatteMilkCount());
 		notifyObservers(this);
+	}
+
+	public Integer[] getCountArray() {
+		return count;
 	}
 
 	public int getCount(int index) {

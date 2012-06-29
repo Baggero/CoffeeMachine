@@ -4,14 +4,14 @@ import se.coffeemachine.vos.CoffeeVo;
 import android.os.Handler;
 import android.os.HandlerThread;
 
-public class CoffeeState implements ControllerState {
+public abstract class CoffeeState implements ControllerState {
 
-	private final HandlerThread workerThread;
+	public final HandlerThread workerThread;
 
 	protected SwipeController controller;
 	protected CoffeeVo model;
 
-	private final Handler workerHandler;
+	protected final Handler workerHandler;
 
 	protected Handler getWorkerHandler() {
 		return workerHandler;

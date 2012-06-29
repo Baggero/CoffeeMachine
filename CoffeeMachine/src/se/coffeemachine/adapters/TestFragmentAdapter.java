@@ -1,6 +1,7 @@
 package se.coffeemachine.adapters;
 
 import se.coffeemachine.R;
+import se.coffeemachine.controllers.SwipeController;
 import se.coffeemachine.fragments.DrinkFragment;
 import se.coffeemachine.fragments.ManualsFragment;
 import se.coffeemachine.fragments.SettingsFragment;
@@ -18,15 +19,16 @@ public class TestFragmentAdapter extends FragmentPagerAdapter {
 
 	private int mCount;
 
-	public TestFragmentAdapter(FragmentManager fm, Context context) {
+	public TestFragmentAdapter(FragmentManager fm, Context context,
+			SwipeController controller) {
 		super(fm);
 		fragment_titles = context.getResources().getStringArray(
 				R.array.fragment_titles);
 		fragments = new SwipeFragment[] {
-				new StatisticFragment((SwipeContext) context),
-				new DrinkFragment((SwipeContext) context),
-				new SettingsFragment((SwipeContext) context),
-				new ManualsFragment((SwipeContext) context) };
+				new StatisticFragment((SwipeContext) context, controller),
+				new DrinkFragment((SwipeContext) context, controller),
+				new SettingsFragment((SwipeContext) context, controller),
+				new ManualsFragment((SwipeContext) context, controller) };
 		mCount = fragment_titles.length;
 	}
 

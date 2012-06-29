@@ -12,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SettingsFragment extends SwipeFragment {
-	public SettingsFragment(SwipeContext context) {
-		super(context);
+	public SettingsFragment(SwipeContext context, SwipeController controller) {
+		super(context, controller);
+		Log.i(TAG, "Trying to create");
 	}
 
 	public static final String TAG = SettingsFragment.class.getSimpleName();
@@ -44,6 +45,7 @@ public class SettingsFragment extends SwipeFragment {
 						2);
 			}
 		});
+		Log.i(TAG, "Created");
 		return view;
 	}
 
