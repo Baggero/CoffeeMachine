@@ -21,9 +21,6 @@ public class StatisticFragment extends SwipeFragment implements
 		Handler.Callback {
 	public StatisticFragment(SwipeContext context, SwipeController controller) {
 		super(context, controller);
-		Log.i(TAG, "Trying to create");
-		counters = new Integer[] { 0, 0, 0, 0 };
-		controller.addOutboxHandler(new Handler(this));
 	}
 
 	public static final String TAG = StatisticFragment.class.getSimpleName();
@@ -39,14 +36,19 @@ public class StatisticFragment extends SwipeFragment implements
 	private Integer[] counters;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.i(TAG, "Trying to create");
+		counters = new Integer[] { 0, 0, 0, 0 };
+		controller.addOutboxHandler(new Handler(this));
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.statistics, container, false);
-
-		adapter = new StatisticsListAdapter((Context) context, counters);
 		mList = (ListView) view.findViewById(R.id.listView);
-		mList.setAdapter(adapter);
 
 		mImage = (ImageView) view.findViewById(R.id.imageView1);
 		mText1 = (TextView) view.findViewById(R.id.textView1);
@@ -64,26 +66,38 @@ public class StatisticFragment extends SwipeFragment implements
 			}
 		});
 		fetchData();
-		Log.i(TAG, "StatisticFragment view created");
+		Log.i(TAG, "Created");
 		return view;
 	}
 
 	private void fetchData() {
 		Log.i(TAG, "fetchData");
-		context.handleMessage(SwipeController.MESSAGE_GET_COUNTERS);
+		context.handleMessage(SwipeController.MESSAGE_STATISTICS_SET_UP);
 
 	}
 
 	@Override
-	public void updateFragment(CoffeeVo model) {
+	public void onDestroyView() {
+		super.onDestroy();
+		Log.d(TAG, "Destroy");
+	}
+
+	@Override
+	public void updateFragment(final CoffeeVo model) {
 		Log.i(TAG, "updateFragment");
-		mText1.setText("Statistics: "
-				+ ((Integer) model.getCount(0)).toString());
-		mText2.setText("Drinks: " + ((Integer) model.getCount(1)).toString());
-		mText3.setText("Settings: " + ((Integer) model.getCount(2)).toString());
-		mText4.setText("Manuals: " + ((Integer) model.getCount(3)).toString());
-		counters = model.getCountArray();
-		adapter.notifyDataSetChanged();
+		((Activity) context).runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				counters = model.getCountArray();
+				mText1.setText("Statistics: " + (counters[0]).toString());
+				mText2.setText("Drinks: " + (counters[1]).toString());
+				mText3.setText("Settings: " + (counters[2]).toString());
+				mText4.setText("Manuals: " + (counters[3]).toString());
+
+			}
+
+		});
 
 	}
 
@@ -91,11 +105,14 @@ public class StatisticFragment extends SwipeFragment implements
 	public boolean handleMessage(final Message msg) {
 		Log.i(TAG, "handleMessage");
 		switch (msg.what) {
-		case SwipeController.MESSAGE_STATISTICS_UPDATED:
+		case SwipeController.MESSAGE_STATISTICS_SET_UP_ANSWER:
 			((Activity) context).runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					counters = ((CoffeeVo) msg.obj).getCountArray();
+					adapter = new StatisticsListAdapter((Context) context,
+							counters);
+					mList.setAdapter(adapter);
 					adapter.notifyDataSetChanged();
 				}
 			});

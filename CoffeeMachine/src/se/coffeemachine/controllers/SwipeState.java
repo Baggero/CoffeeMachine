@@ -28,6 +28,18 @@ public abstract class SwipeState extends CoffeeState {
 			int pos = (Integer) data;
 			model.setCount(model.getCount(pos) + 1, pos);
 			return true;
+		case SwipeController.MESSAGE_STATISTICS_SET_UP:
+			setUpStatistics();
+			return true;
+		case SwipeController.MESSAGE_DRINKS_SET_UP:
+			setUpDrinks();
+			return true;
+		case SwipeController.MESSAGE_SETTINGS_SET_UP:
+			setUpSettings();
+			return true;
+		case SwipeController.MESSAGE_MANUALS_SET_UP:
+			setUpManuals();
+			return true;
 		default:
 			return super.handleMessage(what, data);
 		}
@@ -36,13 +48,18 @@ public abstract class SwipeState extends CoffeeState {
 	public void updateState(int position) {
 		switch (position) {
 		case SwipeActivity.STATISTICS_STATE:
+			controller.setMessageState(new StatisticsState(controller));
+			Log.i(TAG, "Settings statistics state");
 			break;
 		case SwipeActivity.DRINK_STATE:
 			controller.setMessageState(new DrinkState(controller));
+			Log.i(TAG, "Settings drink state");
 			break;
 		case SwipeActivity.MANUALS_STATE:
 			break;
 		case SwipeActivity.SETTINGS_STATE:
+			controller.setMessageState(new SettingsState(controller));
+			Log.i(TAG, "Settings settings state");
 			break;
 		default:
 			Log.i(TAG,
@@ -51,4 +68,28 @@ public abstract class SwipeState extends CoffeeState {
 		}
 	}
 
+	private void setUpStatistics() {
+		workerHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (model) {
+					controller.notifyOutboxHandlers(
+							SwipeController.MESSAGE_STATISTICS_SET_UP_ANSWER,
+							0, 0, model);
+				}
+			}
+		});
+	}
+
+	private void setUpDrinks() {
+		// Similar to setUpStatistics()
+	}
+
+	private void setUpSettings() {
+		// Similar to setUpStatistics()
+	}
+
+	private void setUpManuals() {
+		// Similar to setUpStatistics()
+	}
 }

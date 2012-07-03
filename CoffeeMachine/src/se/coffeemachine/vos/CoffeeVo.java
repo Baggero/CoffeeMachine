@@ -12,6 +12,26 @@ public class CoffeeVo extends SimpleObservable<CoffeeVo> {
 	private int small_coffee_count = 0;
 	private int cappuccino_milk_count = 0;
 	private int cafe_latte_milk_count = 0;
+	private final Double[] coffee_volume = new Double[] { 30.0, 0.0, 870.0 };
+
+	// {current value, min value, max value}
+
+	public double getCurrentVolume() {
+		return coffee_volume[0];
+	}
+
+	public void setCurrentVolume(double volume) {
+		coffee_volume[0] = volume;
+		notifyObservers(this);
+	}
+
+	public Double getMaxVolume() {
+		return coffee_volume[2];
+	}
+
+	public Double getMinVolume() {
+		return coffee_volume[1];
+	}
 
 	public int getBigCoffeeCount() {
 		return big_coffee_count;

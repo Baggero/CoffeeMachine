@@ -4,6 +4,8 @@ import se.coffeemachine.R;
 import se.coffeemachine.controllers.SwipeController;
 import se.coffeemachine.vos.CoffeeVo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public final class DrinkFragment extends SwipeFragment {
+public final class DrinkFragment extends SwipeFragment implements
+		Handler.Callback {
 	public DrinkFragment(SwipeContext context, SwipeController controller) {
 		super(context, controller);
 		Log.i(TAG, "Trying to create");
@@ -35,6 +38,7 @@ public final class DrinkFragment extends SwipeFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.drinks, container, false);
 		initComponents(view);
+		fetchData();
 		Log.i(TAG, "Created");
 		return view;
 	}
@@ -114,6 +118,12 @@ public final class DrinkFragment extends SwipeFragment {
 		});
 	}
 
+	private void fetchData() {
+		Log.i(TAG, "fetchData");
+		context.handleMessage(SwipeController.MESSAGE_DRINKS_SET_UP);
+
+	}
+
 	@Override
 	public void updateFragment(CoffeeVo model) {
 		mText1.setText("Statistics: "
@@ -123,5 +133,11 @@ public final class DrinkFragment extends SwipeFragment {
 		mText4.setText("Manuals: " + ((Integer) model.getCount(3)).toString());
 		// TODO
 
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

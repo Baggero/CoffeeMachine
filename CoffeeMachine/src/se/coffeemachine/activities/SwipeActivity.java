@@ -46,7 +46,7 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		TitlePageIndicator title_indicator = (TitlePageIndicator) findViewById(R.id.title_indicator);
 		pager.setAdapter(mAdapter);
 		title_indicator.setViewPager(pager);
-		pager.setOffscreenPageLimit(2);
+		pager.setOffscreenPageLimit(1);
 		pager.setCurrentItem(1);
 		title_indicator.setOnPageChangeListener(this);
 	}

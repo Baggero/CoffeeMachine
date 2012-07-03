@@ -13,6 +13,7 @@
         android:src="@drawable/settings" />
 
     <TableLayout
+        android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -63,5 +64,13 @@
                 android:text="@string/manuals" />
         </TableRow>
     </TableLayout>
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
 
 </RelativeLayout>

@@ -4,6 +4,8 @@ import se.coffeemachine.R;
 import se.coffeemachine.controllers.SwipeController;
 import se.coffeemachine.vos.CoffeeVo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ManualsFragment extends SwipeFragment {
+public class ManualsFragment extends SwipeFragment implements Handler.Callback {
 	public ManualsFragment(SwipeContext context, SwipeController controller) {
 		super(context, controller);
 		Log.i(TAG, "Trying to create");
@@ -46,8 +48,15 @@ public class ManualsFragment extends SwipeFragment {
 						3);
 			}
 		});
+		fetchData();
 		Log.i(TAG, "Created");
 		return view;
+	}
+
+	private void fetchData() {
+		Log.i(TAG, "fetchData");
+		context.handleMessage(SwipeController.MESSAGE_MANUALS_SET_UP);
+
 	}
 
 	@Override
@@ -58,6 +67,12 @@ public class ManualsFragment extends SwipeFragment {
 		mText3.setText("Settings: " + ((Integer) model.getCount(2)).toString());
 		mText4.setText("Manuals: " + ((Integer) model.getCount(3)).toString());
 
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
