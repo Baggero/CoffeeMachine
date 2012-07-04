@@ -8,9 +8,14 @@ import se.coffeemachine.fragments.SwipeContext;
 import se.coffeemachine.fragments.SwipeFragment;
 import se.coffeemachine.vos.CoffeeVo;
 import se.coffeemachine.vos.OnChangeListener;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -39,6 +44,8 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		counter.addListener(this);
 		controller = new SwipeController(counter);
 
+		controller.handleMessage(SwipeController.MESSAGE_GET_COFFEE_MODEL);
+
 		mAdapter = new TestTitleFragmentAdapter(getSupportFragmentManager(),
 				this, controller);
 
@@ -59,6 +66,33 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 	@Override
 	public boolean handleMessage(int what, Object data) {
 		return controller.handleMessage(what, data);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.reset:
+			return controller.handleMessage(
+					SwipeController.MESSAGE_RESET_MODEL, controller.getModel()
+							.getId());
+		case R.id.save:
+			return controller.handleMessage(SwipeController.MESSAGE_SAVE_MODEL);
+		case R.id.about:
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("http://www.therealjoshua.com/blog/"));
+			startActivity(intent);
+			return true;
+		default:
+			return false;
+
+		}
 	}
 
 	@Override

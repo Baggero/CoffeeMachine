@@ -38,7 +38,7 @@ public class StatisticFragment extends SwipeFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i(TAG, "Trying to create");
+		Log.i(TAG, "onCreate");
 		counters = new Integer[] { 0, 0, 0, 0 };
 		controller.addOutboxHandler(new Handler(this));
 	}
@@ -79,7 +79,7 @@ public class StatisticFragment extends SwipeFragment implements
 	@Override
 	public void onDestroyView() {
 		super.onDestroy();
-		Log.d(TAG, "Destroy");
+		Log.d(TAG, "onDestroyView");
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class StatisticFragment extends SwipeFragment implements
 				mText2.setText("Drinks: " + (counters[1]).toString());
 				mText3.setText("Settings: " + (counters[2]).toString());
 				mText4.setText("Manuals: " + (counters[3]).toString());
-
+				adapter.notifyDataSetChanged();
 			}
 
 		});
@@ -106,9 +106,11 @@ public class StatisticFragment extends SwipeFragment implements
 		Log.i(TAG, "handleMessage");
 		switch (msg.what) {
 		case SwipeController.MESSAGE_STATISTICS_SET_UP_ANSWER:
+			Log.i(TAG, "handleMessage - case: MESSAGE_STATISTICS_SET_UP");
 			((Activity) context).runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
+					Log.i(TAG, "handleMessage - inside run()");
 					counters = ((CoffeeVo) msg.obj).getCountArray();
 					adapter = new StatisticsListAdapter((Context) context,
 							counters);
