@@ -16,5 +16,10 @@
     <string name="drinks">Drinks: 0</string>
     <string name="settings">Settings: 0</string>
     <string name="manuals">Manuals: 0</string>
+    <string name="make">Make</string>
+    <string name="reset">Reset</string>
+    <string name="big_coffee">Big Coffee</string>
+    <string name="small_coffee">Small Coffee</string>
+    <string name="volume_ml">ml</string>
 
 </resources>

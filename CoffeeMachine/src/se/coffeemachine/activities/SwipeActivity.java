@@ -4,10 +4,15 @@ import se.coffeemachine.R;
 import se.coffeemachine.adapters.TestFragmentAdapter;
 import se.coffeemachine.adapters.TestTitleFragmentAdapter;
 import se.coffeemachine.controllers.SwipeController;
+import se.coffeemachine.dialogs.CoffeeDialog;
+import se.coffeemachine.dialogs.CoffeeDialogs;
 import se.coffeemachine.fragments.SwipeContext;
 import se.coffeemachine.fragments.SwipeFragment;
+import se.coffeemachine.utils.DialogUtils;
 import se.coffeemachine.vos.CoffeeVo;
 import se.coffeemachine.vos.OnChangeListener;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,20 +34,26 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 	public final static int SETTINGS_STATE = 2;
 	public final static int MANUALS_STATE = 3;
 
+	private static Context context;
+
 	private SwipeController controller;
-	private CoffeeVo counter;
+	private CoffeeVo coffeevo;
 
 	private TestFragmentAdapter mAdapter;
 	private ViewPager pager;
+
+	private CoffeeDialog mDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		context = this;
 
-		counter = new CoffeeVo();
-		counter.addListener(this);
-		controller = new SwipeController(counter);
+		mDialog = null;
+		coffeevo = new CoffeeVo();
+		coffeevo.addListener(this);
+		controller = new SwipeController(coffeevo);
 
 		controller.handleMessage(SwipeController.MESSAGE_GET_COFFEE_MODEL);
 
@@ -60,7 +71,26 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 
 	@Override
 	public boolean handleMessage(int what) {
-		return controller.handleMessage(what);
+		switch (what) {
+		case CoffeeDialogs.MAKE_COFFEE_DIALOG:
+			mDialog = CoffeeDialogs.getMakeCoffeeDialog(context, controller,
+					context.getResources().getString(R.string.big_coffee),
+					"message", R.string.big_coffee,
+					coffeevo.getCurrentVolume(), coffeevo.getMaxVolume());
+			DialogUtils.setDialogParams(mDialog);
+			mDialog.show();
+			mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					mDialog = null;
+
+				}
+			});
+			return true;
+		default:
+			return controller.handleMessage(what);
+		}
 	}
 
 	@Override
@@ -80,8 +110,7 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		switch (item.getItemId()) {
 		case R.id.reset:
 			return controller.handleMessage(
-					SwipeController.MESSAGE_RESET_MODEL, controller.getModel()
-							.getId());
+					SwipeController.MESSAGE_RESET_MODEL, coffeevo.getId());
 		case R.id.save:
 			return controller.handleMessage(SwipeController.MESSAGE_SAVE_MODEL);
 		case R.id.about:
@@ -106,8 +135,13 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 	}
 
 	public void updateView(int position) {
-		SwipeFragment fragment = (SwipeFragment) mAdapter.getItem(position);
-		fragment.updateFragment(counter);
+		if (mDialog == null) {
+			SwipeFragment fragment = (SwipeFragment) mAdapter.getItem(position);
+			fragment.updateFragment(coffeevo);
+		} else {
+			mDialog.updateDialog(coffeevo);
+		}
+
 	}
 
 	@Override

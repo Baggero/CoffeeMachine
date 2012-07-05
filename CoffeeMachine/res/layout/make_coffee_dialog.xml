@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true" >
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:background="#FFFFFF" >
+
+        <ImageView
+            android:id="@+id/make_coffee_dialog_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/coffee_brown" />
+
+        <TextView
+            android:id="@+id/make_coffee_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/big_coffee"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/make_coffee_dialog_reset_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:text="@string/reset" />
+
+        <Button
+            android:id="@+id/make_coffee_dialog_make_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/make" />
+
+        <SeekBar
+            android:id="@+id/make_coffee_dialog_seekbar"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp" />
+
+        <EditText
+            android:id="@+id/make_coffee_dialog_edittext"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/make_coffee_dialog_seekbar"
+            android:layout_below="@+id/make_coffee_dialog_seekbar"
+            android:layout_marginLeft="14dp"
+            android:gravity="right"
+            android:inputType="numberSigned"
+            android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/make_coffee_dialog_seekbar"
+            android:layout_below="@+id/make_coffee_dialog_reset_button"
+            android:text="@string/volume_ml" />
+    </RelativeLayout>
+
+</RelativeLayout>

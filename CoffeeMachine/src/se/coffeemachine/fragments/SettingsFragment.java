@@ -2,6 +2,7 @@ package se.coffeemachine.fragments;
 
 import se.coffeemachine.R;
 import se.coffeemachine.controllers.SwipeController;
+import se.coffeemachine.utils.VolumeUtils;
 import se.coffeemachine.vos.CoffeeVo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ public class SettingsFragment extends SwipeFragment implements Handler.Callback 
 		Log.i(TAG, "SettingsFragment created");
 		View view = inflater.inflate(R.layout.settings, container, false);
 		mSeekBar = (SeekBar) view.findViewById(R.id.seekBar1);
+		mSeekBar.setMax(VolumeUtils.SEEKBAR_MAX);
 		mImage = (ImageView) view.findViewById(R.id.imageView1);
 		mText1 = (TextView) view.findViewById(R.id.textView1);
 		mText2 = (TextView) view.findViewById(R.id.textView2);
@@ -91,7 +93,7 @@ public class SettingsFragment extends SwipeFragment implements Handler.Callback 
 		mText2.setText("Drinks: " + ((Integer) model.getCount(1)).toString());
 		mText3.setText("Settings: " + ((Integer) model.getCount(2)).toString());
 		mText4.setText("Manuals: " + ((Integer) model.getCount(3)).toString());
-		mSeekBar.setProgress(weightSeekBar(model.getCurrentVolume(),
+		mSeekBar.setProgress(VolumeUtils.weightVolume(model.getCurrentVolume(),
 				model.getMaxVolume()));
 	}
 

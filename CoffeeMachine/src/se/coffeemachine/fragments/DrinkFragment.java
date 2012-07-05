@@ -2,6 +2,7 @@ package se.coffeemachine.fragments;
 
 import se.coffeemachine.R;
 import se.coffeemachine.controllers.SwipeController;
+import se.coffeemachine.dialogs.CoffeeDialogs;
 import se.coffeemachine.vos.CoffeeVo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,9 +69,12 @@ public final class DrinkFragment extends SwipeFragment implements
 			@Override
 			public void onClick(View v) {
 				// TODO Later change to another handleMessage. Won«t be a count
-				Log.i(TAG, "Big Coffe Button Clicked");
-				context.handleMessage(SwipeController.MESSAGE_MAKE_BIG_COFFEE,
-						1);
+				Log.i(TAG, "Big Coffee Button Clicked");
+				// context.handleMessage(SwipeController.MESSAGE_MAKE_BIG_COFFEE,
+				// 1);
+
+				context.handleMessage(CoffeeDialogs.MAKE_COFFEE_DIALOG);
+
 			}
 		});
 

@@ -40,6 +40,13 @@ public abstract class SwipeState extends CoffeeState {
 		case SwipeController.MESSAGE_MANUALS_SET_UP:
 			setUpManuals();
 			return true;
+		case SwipeController.MESSAGE_SET_CURRENT_VALUE:
+			double volume = (((Double) data) / 100) * model.getMaxVolume();
+			Log.d(TAG, "Current Volume=" + Double.toString(volume) + " Max="
+					+ Double.toString(model.getMaxVolume()) + " Value="
+					+ Double.toString((Double) data));
+			model.setCurrentVolume(volume);
+			return true;
 		default:
 			return super.handleMessage(what, data);
 		}
