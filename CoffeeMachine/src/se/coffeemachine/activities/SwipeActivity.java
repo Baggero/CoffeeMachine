@@ -8,6 +8,7 @@ import se.coffeemachine.dialogs.CoffeeDialog;
 import se.coffeemachine.dialogs.CoffeeDialogs;
 import se.coffeemachine.fragments.SwipeContext;
 import se.coffeemachine.fragments.SwipeFragment;
+import se.coffeemachine.utils.CoffeeStateUtils;
 import se.coffeemachine.utils.DialogUtils;
 import se.coffeemachine.vos.CoffeeVo;
 import se.coffeemachine.vos.OnChangeListener;
@@ -73,20 +74,7 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 	public boolean handleMessage(int what) {
 		switch (what) {
 		case CoffeeDialogs.MAKE_COFFEE_DIALOG:
-			mDialog = CoffeeDialogs.getMakeCoffeeDialog(context, controller,
-					context.getResources().getString(R.string.big_coffee),
-					"message", R.string.big_coffee,
-					coffeevo.getCurrentVolume(), coffeevo.getMaxVolume());
-			DialogUtils.setDialogParams(mDialog);
-			mDialog.show();
-			mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-				@Override
-				public void onDismiss(DialogInterface dialog) {
-					mDialog = null;
-
-				}
-			});
+			showNewDialog(CoffeeDialogs.MAKE_COFFEE_DIALOG);
 			return true;
 		default:
 			return controller.handleMessage(what);
@@ -129,19 +117,66 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				updateView(pager.getCurrentItem());
+				int state = coffeevo.getCurrentState();
+				if (state != coffeevo.getPreviousState()) {
+					switch (state) {
+					case CoffeeStateUtils.STATE_1:
+						// Display the appropriate dialog for STATE_1
+						showNewDialog(CoffeeDialogs.STATE_1_DIALOG);
+						break;
+					case CoffeeStateUtils.STATE_2:
+						// Display the appropriate dialog for STATE_2
+						showNewDialog(CoffeeDialogs.STATE_2_DIALOG);
+						break;
+					// Add case for all new states that should show a dialog.
+					default:
+						// The new state does not require a dialog and the
+						// child-view itself gets to decide how to display its
+						// components.
+						updateView();
+						break;
+					}
+				} else {
+					// If the state is not changed the same view as before
+					// should
+					// be changed and displayed (This can be a dialog or a view)
+					updateView();
+				}
+
 			}
 		});
 	}
 
-	public void updateView(int position) {
+	private void showNewDialog(int dialog) {
+		switch (dialog) {
+		case CoffeeDialogs.MAKE_COFFEE_DIALOG:
+			mDialog = CoffeeDialogs.getMakeCoffeeDialog(context, controller,
+					context.getResources().getString(R.string.big_coffee),
+					"message", R.string.big_coffee,
+					coffeevo.getCurrentVolume(), coffeevo.getMaxVolume());
+			DialogUtils.setDialogParams(mDialog);
+			mDialog.show();
+			mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					mDialog = null;
+
+				}
+			});
+			break;
+		}
+
+	}
+
+	public void updateView() {
 		if (mDialog == null) {
-			SwipeFragment fragment = (SwipeFragment) mAdapter.getItem(position);
+			SwipeFragment fragment = (SwipeFragment) mAdapter.getItem(pager
+					.getCurrentItem());
 			fragment.updateFragment(coffeevo);
 		} else {
 			mDialog.updateDialog(coffeevo);
 		}
-
 	}
 
 	@Override
@@ -151,7 +186,7 @@ public class SwipeActivity extends FragmentActivity implements SwipeContext,
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				updateView(position);
+				updateView();
 			}
 		});
 	}

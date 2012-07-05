@@ -1,5 +1,6 @@
 package se.coffeemachine.vos;
 
+import se.coffeemachine.utils.CoffeeStateUtils;
 import android.util.Log;
 
 public class CoffeeVo extends SimpleObservable<CoffeeVo> {
@@ -14,6 +15,8 @@ public class CoffeeVo extends SimpleObservable<CoffeeVo> {
 	private int cappuccino_milk_count = 0;
 	private int cafe_latte_milk_count = 0;
 	private final Double[] coffee_volume = new Double[] { 30.0, 0.0, 870.0 };
+	private int current_state = CoffeeStateUtils.STATE_ON;
+	private int previous_state = CoffeeStateUtils.STATE_OFF;
 
 	// {current value, min value, max value}
 
@@ -23,6 +26,24 @@ public class CoffeeVo extends SimpleObservable<CoffeeVo> {
 
 	public void setId(int id) {
 		this.id = id;
+		notifyObservers(this);
+	}
+
+	public int getCurrentState() {
+		return current_state;
+	}
+
+	public void setCurrentState(int current_state) {
+		this.current_state = current_state;
+		notifyObservers(this);
+	}
+
+	public int getPreviousState() {
+		return previous_state;
+	}
+
+	public void setPreviousState(int previous_state) {
+		this.previous_state = previous_state;
 		notifyObservers(this);
 	}
 

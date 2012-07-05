@@ -3,6 +3,7 @@ package se.coffeemachine.fragments;
 import se.coffeemachine.R;
 import se.coffeemachine.adapters.StatisticsListAdapter;
 import se.coffeemachine.controllers.SwipeController;
+import se.coffeemachine.utils.CoffeeStateUtils;
 import se.coffeemachine.vos.CoffeeVo;
 import android.app.Activity;
 import android.content.Context;
@@ -94,11 +95,38 @@ public class StatisticFragment extends SwipeFragment implements
 				mText2.setText("Drinks: " + (counters[1]).toString());
 				mText3.setText("Settings: " + (counters[2]).toString());
 				mText4.setText("Manuals: " + (counters[3]).toString());
+
+				int state = model.getCurrentState();
+				switch (state) {
+				case CoffeeStateUtils.STATE_3:
+					break;
+				case CoffeeStateUtils.STATE_4:
+					break;
+				default:
+					break;
+				}
+
 				adapter.notifyDataSetChanged();
 			}
 
 		});
+	}
 
+	private void fullDisplayMode() {
+		// Enable all components
+		mList.setEnabled(true);
+		mText1.setEnabled(true);
+		mText2.setEnabled(true);
+		mText3.setEnabled(true);
+		mText4.setEnabled(true);
+	}
+
+	private void restrictedDisplayMode1() {
+		// Disable some of the components
+	}
+
+	private void restrictedDisplayMode2() {
+		// Disable some of the components
 	}
 
 	@Override

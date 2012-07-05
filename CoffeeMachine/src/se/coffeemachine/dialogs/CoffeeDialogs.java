@@ -17,13 +17,25 @@ import android.widget.TextView;
 
 public final class CoffeeDialogs {
 	private static final String TAG = CoffeeDialogs.class.getSimpleName();
-	public static final int MAKE_COFFEE_DIALOG = 100;
+
+	// Resources for Dialogs (151-200)
+	public static final int MAKE_COFFEE_DIALOG = 151;
+	public static final int STATE_1_DIALOG = 152;
+	public static final int STATE_2_DIALOG = 153;
 
 	public static MakeCoffeeDialog getMakeCoffeeDialog(Context context,
 			SwipeController controller, String title, String message, int size,
 			double currentVolume, double maxVolume) {
 		return new MakeCoffeeDialog(context, controller, title, message, size,
 				currentVolume, maxVolume);
+	}
+
+	public static Dialog stateOneDialog() {
+		return null;
+	}
+
+	public static Dialog stateTwoDialog() {
+		return null;
 	}
 
 	public static Dialog getCoffeeDialog(Context context,
