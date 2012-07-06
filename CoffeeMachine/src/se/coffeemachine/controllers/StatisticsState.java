@@ -19,6 +19,7 @@ public class StatisticsState extends SwipeState {
 	@Override
 	public boolean handleMessage(int what, Object data) {
 		switch (what) {
+		// Add case: for every unique message for StatisticsFragment
 		default:
 			return super.handleMessage(what, data);
 		}

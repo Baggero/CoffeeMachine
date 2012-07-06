@@ -19,7 +19,7 @@ public class SwipeController extends Controller {
 		this.messageState = messageState;
 	}
 
-	// Messages that has nothing to do with the fragment (0 - 20)
+	// Messages that has nothing to do with the fragments (0 - 20)
 	public static final int MESSAGE_GET_COFFEE_MODEL = 0;
 	public static final int MESSAGE_INCREMENT_COUNT = 1;
 	public static final int MESSAGE_SAVE_MODEL = 2;

@@ -2,7 +2,9 @@ package se.coffeemachine.fragments;
 
 import se.coffeemachine.R;
 import se.coffeemachine.controllers.SwipeController;
+import se.coffeemachine.utils.CoffeeStateUtils;
 import se.coffeemachine.vos.CoffeeVo;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -60,13 +62,50 @@ public class ManualsFragment extends SwipeFragment implements Handler.Callback {
 	}
 
 	@Override
-	public void updateFragment(CoffeeVo model) {
-		mText1.setText("Statistics: "
-				+ ((Integer) model.getCount(0)).toString());
-		mText2.setText("Drinks: " + ((Integer) model.getCount(1)).toString());
-		mText3.setText("Settings: " + ((Integer) model.getCount(2)).toString());
-		mText4.setText("Manuals: " + ((Integer) model.getCount(3)).toString());
+	public void updateFragment(final CoffeeVo model) {
+		Log.i(TAG, "updateFragment");
+		((Activity) context).runOnUiThread(new Runnable() {
 
+			@Override
+			public void run() {
+				mText1.setText("Statistics: "
+						+ ((Integer) model.getCount(0)).toString());
+				mText2.setText("Drinks: "
+						+ ((Integer) model.getCount(1)).toString());
+				mText3.setText("Settings: "
+						+ ((Integer) model.getCount(2)).toString());
+				mText4.setText("Manuals: "
+						+ ((Integer) model.getCount(3)).toString());
+
+				int state = model.getCurrentState();
+				switch (state) {
+				case CoffeeStateUtils.STATE_3:
+					break;
+				case CoffeeStateUtils.STATE_4:
+					break;
+				default:
+					fullDisplayMode();
+					break;
+				}
+			}
+
+		});
+	}
+
+	private void fullDisplayMode() {
+		// Enable all components
+		mText1.setEnabled(true);
+		mText2.setEnabled(true);
+		mText3.setEnabled(true);
+		mText4.setEnabled(true);
+	}
+
+	private void restrictedDisplayMode1() {
+		// Disable some of the components
+	}
+
+	private void restrictedDisplayMode2() {
+		// Disable some of the components
 	}
 
 	@Override

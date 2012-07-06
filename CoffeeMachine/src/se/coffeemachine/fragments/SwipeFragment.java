@@ -14,4 +14,5 @@ public abstract class SwipeFragment extends Fragment {
 	}
 
 	public abstract void updateFragment(CoffeeVo model);
+
 }

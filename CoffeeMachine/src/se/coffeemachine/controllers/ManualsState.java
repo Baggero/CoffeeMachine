@@ -1,6 +1,5 @@
 package se.coffeemachine.controllers;
 
-
 public class ManualsState extends SwipeState {
 
 	public ManualsState(SwipeController controller) {
@@ -18,6 +17,7 @@ public class ManualsState extends SwipeState {
 	@Override
 	public boolean handleMessage(int what, Object data) {
 		switch (what) {
+		// Add case: for every unique message for ManualsFragment
 		default:
 			return super.handleMessage(what, data);
 		}

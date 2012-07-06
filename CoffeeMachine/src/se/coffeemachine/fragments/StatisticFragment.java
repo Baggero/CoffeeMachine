@@ -103,6 +103,7 @@ public class StatisticFragment extends SwipeFragment implements
 				case CoffeeStateUtils.STATE_4:
 					break;
 				default:
+					fullDisplayMode();
 					break;
 				}
 
